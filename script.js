@@ -1,14 +1,15 @@
 const startBtn = document.getElementById("startBtn");
 const gameBtn = document.getElementById("gameBtn");
 const restartBtn = document.getElementById("restartBtn");
+const scoreBoard = document.getElementById('scoreBoard')
+const scoreList = document.getElementById('scoreList')
 
 startGame = () => {
   startBtn.style.display = "none";
   gameBtn.style.display = "block";
   restartBtn.style.display = "block";
   myCountDown()
-
-  setInterval(myCountDown, 1000);
+  
 };
 
 playBtn = () => {
@@ -45,7 +46,15 @@ scoreFunction = () => {
   document.getElementById("myScore").value = ++i;
 };
 
-displayScoreBoard = () => {};
+displayScoreBoard = () => {
+
+  let player = window.prompt("Player Name?")
+  var li = document.createElement('li')
+  li.appendChild(document.createTextNode(player + " score: " + (`${document.getElementById("myScore").value }`)));
+  scoreList.appendChild(li)
+
+  gameBtn.style.display = 'none'
+};
 
 restartGame = () => {};
 
@@ -53,12 +62,19 @@ startBtn.addEventListener("click", startGame);
 gameBtn.addEventListener("click", playBtn);
 
 const countDownTimer = document.getElementById("myCountdown");
-var seconds = 30;
+var seconds = 3;
 
 myCountDown = () => {
-  seconds = seconds;
-  seconds--;
-  countDownTimer.value = seconds;
+ countDown = setInterval(function() {
+    seconds--;
+    countDownTimer.value = seconds;
+    console.log(seconds)
+    if (seconds == 0) {
+      clearInterval(countDown)
+      console.log(`your score is ${document.getElementById("myScore").value }`)
+      displayScoreBoard()
+    }
+  }, 1000)
+  
 };
-
 

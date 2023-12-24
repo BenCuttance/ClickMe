@@ -97,3 +97,28 @@ input {
     border: 2px solid black;
     text-align: center;
 }
+
+#scoreBoard {
+  border: 2px solid black;
+  position: absolute;
+  min-width: 500px;
+min-height: 500px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* display: none; */
+  
+}
+
+#scoreList {
+  position: relative;
+  top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+} 
+
+li {
+  padding: 7.5px;
+}
