@@ -3,6 +3,7 @@ const gameBtn = document.getElementById("gameBtn");
 const restartBtn = document.getElementById("restartBtn");
 const scoreBoard = document.getElementById('scoreBoard')
 const scoreList = document.getElementById('scoreList')
+const countDownTimer = document.getElementById("myCountdown");
 
 const coloursArr = [
   {colour: 'green', hexa: '#0e6210'},
@@ -45,25 +46,27 @@ decreaseSize = () => {
   const randomColour = Math.floor(Math.random() * coloursArr.length)
   let newColour = coloursArr[randomColour]
   let updatedColour = newColour.hexa
-  console.log(updatedColour)
-
+  
   initalFont = initalFont * 0.9;
   initalHeight = initalHeight - 5;
   initalWidth = initalWidth - 10;
 
-  var updatedFont = initalFont + "px";
-  var updatedHeight = initalHeight + "px";
-  var updatedWidth = initalWidth + "px";
-
-  console.log(updatedHeight);
+  let updatedFont = initalFont + "px";
+  let updatedHeight = initalHeight + "px";
+  let updatedWidth = initalWidth + "px";
 
   gameBtn.style.backgroundColor = updatedColour
   gameBtn.style.fontSize = updatedFont;
   gameBtn.style.height = updatedHeight;
   gameBtn.style.width = updatedWidth;
+
+
+  console.log(`font = ${updatedFont}`, updatedHeight, updatedWidth)
+  console.log(initalFont, initalHeight, initalWidth)
 };
 
 var i = 0;
+
 scoreFunction = () => {
   document.getElementById("myScore").value = ++i;
 };
@@ -78,19 +81,51 @@ displayScoreBoard = () => {
   gameBtn.style.display = 'none'
 };
 
-restartGame = () => {};
+restartGame = () => {
+  gameBtn.style.display = 'none'
+  startBtn.style.display = 'block'
+  document.getElementById('myScore').value = 0
+  
 
-startBtn.addEventListener("click", startGame);
-gameBtn.addEventListener("click", playBtn);
+  gameBtn.style.fontSize = '30px';
+  gameBtn.style.height = '100px';
+  gameBtn.style.width = '200px';
 
-const countDownTimer = document.getElementById("myCountdown");
-var seconds = 8;
+  initalFont = 30 * 0.9;
+  initalHeight = 100 - 5;
+  initalWidth = 200 - 10;
+
+  let updatedFont = initalFont + "px";
+  let updatedHeight = initalHeight + "px";
+  let updatedWidth = initalWidth + "px";
+
+  console.log('--------------------reset---------------------')
+  console.log(` font = ${updatedFont}`, updatedHeight, updatedWidth)
+  console.log(initalFont, initalHeight, initalWidth)
+
+  i = 0
+  resetScore = i 
+  document.getElementById('myScore').value = resetScore
+
+  clearInterval(countDown)
+  
+  // countDownTimer.value = seconds;
+  // updatedSeconds = seconds;
+
+};
+
+
+
+var seconds = 20;
+// var updatedSeconds = seconds
 
 myCountDown = () => {
  countDown = setInterval(function() {
-    seconds--;
+    // var seconds = 20
+    seconds--
+    // updatedSeconds--;
+    // countDownTimer.value = updatedSeconds;
     countDownTimer.value = seconds;
-    console.log(seconds)
     if (seconds == 0) {
       clearInterval(countDown)
       console.log(`your score is ${document.getElementById("myScore").value }`)
@@ -100,3 +135,6 @@ myCountDown = () => {
   
 };
 
+startBtn.addEventListener("click", startGame);
+gameBtn.addEventListener("click", playBtn);
+restartBtn.addEventListener('click', restartGame)
