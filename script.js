@@ -78,8 +78,13 @@ displayScoreBoard = () => {
   while ( i-- ){
     previousScore.push( localStorage.getItem(keys[i]))
   }
-  console.log(previousScore)
-
+  // console.log(previousScore)
+  // let stringScore = (JSON.stringify(previousScore))
+  // let li2 = document.createElement('li')
+  // li2.innerHTML = stringScore
+  // console.log(stringScore)
+  // scoreList.appendChild(li2)
+  Object.entries(window.localStorage).forEach(([key, val]) => (console.log(key, val)))
   
   let player = window.prompt("Player Name?")
   var li = document.createElement('li')
@@ -88,21 +93,13 @@ displayScoreBoard = () => {
   li.appendChild(document.createTextNode(localStorage.getItem(`${player}`)))
 
   scoreList.appendChild(li)
-  // previousScores()
+
   
   scoreBoard.style.display = 'block'
   gameBtn.style.display = 'none'
 };
 
-// previousScores = () => {
-//   let values = [],
-//   keys = Object.keys(localStorage)
-//   i = keys.length
-//   while ( i-- ){
-//     values.push( localStorage.getItem(keys[i]))
-//   }
-//   console.log(values)
-// }
+
 
 
 restartGame = () => {
@@ -154,3 +151,4 @@ resetTimer = () => {
 startBtn.addEventListener("click", startGame);
 gameBtn.addEventListener("click", playBtn);
 restartBtn.addEventListener('click', restartGame)
+
