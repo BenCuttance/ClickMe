@@ -62,7 +62,6 @@ decreaseSize = () => {
 
 
   console.log(`font = ${updatedFont}`, updatedHeight, updatedWidth)
-  console.log(initalFont, initalHeight, initalWidth)
 };
 
 var i = 0;
@@ -73,15 +72,44 @@ scoreFunction = () => {
 
 displayScoreBoard = () => {
 
+  let previousScore = [],
+  keys = Object.keys(localStorage)
+  i = keys.length
+  while ( i-- ){
+    previousScore.push( localStorage.getItem(keys[i]))
+  }
+  console.log(previousScore)
+
+  
   let player = window.prompt("Player Name?")
   var li = document.createElement('li')
-  li.appendChild(document.createTextNode(player + " score: " + (`${document.getElementById("myScore").value }`)));
-  scoreList.appendChild(li)
+  console.log(`${player} | score ${document.getElementById("myScore").value }`)
+  localStorage.setItem(`${player}`, `${player} | score ${document.getElementById("myScore").value }`)
+  li.appendChild(document.createTextNode(localStorage.getItem(`${player}`)))
 
+  scoreList.appendChild(li)
+  // previousScores()
+  
+  scoreBoard.style.display = 'block'
   gameBtn.style.display = 'none'
 };
 
+// previousScores = () => {
+//   let values = [],
+//   keys = Object.keys(localStorage)
+//   i = keys.length
+//   while ( i-- ){
+//     values.push( localStorage.getItem(keys[i]))
+//   }
+//   console.log(values)
+// }
+
+
 restartGame = () => {
+
+  scoreBoard.style.display = 'none'
+  clearInterval(countDown)
+  resetTimer();
   gameBtn.style.display = 'none'
   startBtn.style.display = 'block'
   document.getElementById('myScore').value = 0
@@ -95,36 +123,20 @@ restartGame = () => {
   initalHeight = 100 - 5;
   initalWidth = 200 - 10;
 
-  let updatedFont = initalFont + "px";
-  let updatedHeight = initalHeight + "px";
-  let updatedWidth = initalWidth + "px";
-
-  console.log('--------------------reset---------------------')
-  console.log(` font = ${updatedFont}`, updatedHeight, updatedWidth)
-  console.log(initalFont, initalHeight, initalWidth)
-
   i = 0
   resetScore = i 
   document.getElementById('myScore').value = resetScore
 
-  clearInterval(countDown)
-  
-  // countDownTimer.value = seconds;
-  // updatedSeconds = seconds;
-
+  countDownTimer.value = 20;
 };
 
 
 
-var seconds = 20;
-// var updatedSeconds = seconds
+let seconds = 20;
 
 myCountDown = () => {
  countDown = setInterval(function() {
-    // var seconds = 20
-    seconds--
-    // updatedSeconds--;
-    // countDownTimer.value = updatedSeconds;
+    seconds--;
     countDownTimer.value = seconds;
     if (seconds == 0) {
       clearInterval(countDown)
@@ -134,6 +146,10 @@ myCountDown = () => {
   }, 1000)
   
 };
+
+resetTimer = () => {
+  seconds = 3;
+}
 
 startBtn.addEventListener("click", startGame);
 gameBtn.addEventListener("click", playBtn);
