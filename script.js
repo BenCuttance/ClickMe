@@ -78,14 +78,49 @@ displayScoreBoard = () => {
   while ( i-- ){
     previousScore.push( localStorage.getItem(keys[i]))
   }
-  // console.log(previousScore)
-  // let stringScore = (JSON.stringify(previousScore))
-  // let li2 = document.createElement('li')
-  // li2.innerHTML = stringScore
-  // console.log(stringScore)
-  // scoreList.appendChild(li2)
-  Object.entries(window.localStorage).forEach(([key, val]) => (console.log(key, val)))
+
   
+  Object.entries(window.localStorage).forEach(([key, val]) => {
+
+    const playerArr = []
+    let stringScore = val;
+    playerArr.push(val)
+    // console.log(playerArr)
+    
+    let sortedArr = playerArr 
+    .map(function (str) {
+      var match = str.match(/\d+/);
+  
+      return match ? parseInt(match[0]) : 0;
+
+    })
+
+    .map(function (score, index) {
+      console.log( { original: playerArr[index], score: score})
+      return { original: playerArr[index], score: score}
+    })
+
+    .sort(function (a, b) {
+      return b.score - a.score
+    })
+
+    .map(function (item) {
+  
+      return item.original
+      
+    })
+
+    
+    
+    
+    let previousPlayerScore = document.createElement('li')
+    previousPlayerScore.innerHTML = sortedArr
+    scoreList.appendChild(previousPlayerScore)
+  })
+  
+  
+  console.log('this is a string')
+    
   let player = window.prompt("Player Name?")
   var li = document.createElement('li')
   console.log(`${player} | score ${document.getElementById("myScore").value }`)
@@ -124,12 +159,12 @@ restartGame = () => {
   resetScore = i 
   document.getElementById('myScore').value = resetScore
 
-  countDownTimer.value = 20;
+  countDownTimer.value = 10;
 };
 
 
 
-let seconds = 20;
+let seconds = 10;
 
 myCountDown = () => {
  countDown = setInterval(function() {
@@ -137,7 +172,6 @@ myCountDown = () => {
     countDownTimer.value = seconds;
     if (seconds == 0) {
       clearInterval(countDown)
-      console.log(`your score is ${document.getElementById("myScore").value }`)
       displayScoreBoard()
     }
   }, 1000)
@@ -145,7 +179,7 @@ myCountDown = () => {
 };
 
 resetTimer = () => {
-  seconds = 3;
+  seconds = 10;
 }
 
 startBtn.addEventListener("click", startGame);
